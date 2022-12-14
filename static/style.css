@@ -1,6 +1,7 @@
 body{
-    background: linear-gradient(to right, #006421, #6d846e); 
+    background: linear-gradient(to right, #673c00, #483300); 
     text-align: center;
+    
 }
 
 .intro, .form_container{
@@ -62,4 +63,8 @@ button:focus{
 
 button:hover {
     background-color: #6d846e;
+}
+
+h1,h2,h3,h4,h5,h6, p{
+    color: white;
 }

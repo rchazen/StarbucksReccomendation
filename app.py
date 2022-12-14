@@ -4,6 +4,7 @@ from flask import request, flash
 from flask import abort, render_template
 from flask_sqlalchemy import SQLAlchemy
 import json
+import bcrypt
 import pandas as pd
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -96,13 +97,14 @@ def login_post():
     #print(user.c_custKey)
     print(user.c_custUser)
     
-    if not user.c_custUser or not user.c_custPass == password:
+    if not user.c_custUser:
         flash('Please check your login details and try again.')
         return redirect(url_for('logIn'))
-    elif user.c_custUser and user.c_custPass == password:
+    if bcrypt.checkpw(password.encode('utf-8'), user.c_custPass):
         login_user(user)
         return redirect(url_for('home_menu'))
-    return "Can not log in"
+    else: 
+        return "Can not log in"
 
 @app.route('/logout')
 @login_required
@@ -152,8 +154,9 @@ def signup_post():
     
     # Checks if all fields are filled, if so, add to database, if not, fill in form
     if username and password and city and nation and email and phone:
+        password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         # Admin status defaults to 0
-        db.session.add(Customer(c_custUser = username, c_custPass = password, c_custCity = city, c_custNation = nation, c_custEmail = email, c_custPhoneNumber = phone, c_custAdminStatus = False))
+        db.session.add(Customer(c_custUser = username, c_custPass = password_hashed, c_custCity = city, c_custNation = nation, c_custEmail = email, c_custPhoneNumber = phone, c_custAdminStatus = False))
         db.session.commit()
         flash('Successfully Signed Up!')
         return redirect(url_for('home_menu'))
