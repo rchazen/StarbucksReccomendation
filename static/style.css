@@ -21,18 +21,22 @@ body{
 li {
     display: inline;
     padding: 10px;
-    background-color: #cbfda5;
+    background-color: #825700;
+    color: white;
     
   }
 ul {
     text-align: center;
     padding: 10px;
+    color: white;
+
 }
 li a{
     color: rgb(0, 0, 0)
+
 }
 li:hover {
-    background-color: #4b7649;
+    background-color: #a27200;
   }
 .table_container{
     width: auto;
@@ -58,11 +62,11 @@ button{
 }
 
 button:focus{
-    background: #4b7649;
+    background: #b28b00;
 }
 
 button:hover {
-    background-color: #6d846e;
+    background-color: #936804;
 }
 
 h1,h2,h3,h4,h5,h6, p{
